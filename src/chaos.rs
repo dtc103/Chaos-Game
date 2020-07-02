@@ -5,7 +5,7 @@ use rand::seq::SliceRandom;
 returns an image with the fractasl contained
 
 params:
-    picture_size: the dimension of the picture
+    picture_size: the dimension of the picture in pixels
     iteration_depth: the amount of dots to draw
     input_point: the pivot points for our fractal generation
     colored: if the picture should be coloured
