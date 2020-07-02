@@ -7,7 +7,7 @@ fn main() {
         10000000,
         None, //Some(vec![(250, 0), (0, 220), (500, 220), (170, 500), (340, 500)]),
         true,
-        5f32,
+        2f32,
     );
     p.unwrap().save("fractals.png").unwrap();
 }
