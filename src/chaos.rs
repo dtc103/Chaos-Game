@@ -146,3 +146,35 @@ fn hsv_to_rgb(mut h: f32, mut s: f32, mut v: f32) -> (u8, u8, u8) {
         _ => panic!("This case shouldnt be happen"),
     }
 }
+
+
+pub fn barnsley_fern(picture_size:(u32, u32), iteration_depth: u32, coloured: bool) -> Option<image::ImageBuffer<image::Rgb<u8>, std::vec::Vec<u8>>>{
+    let mut image = image::RgbImage::new(picture_size.0, picture_size.1);
+
+    let mut point = (0f32, 0f32); //starting point
+
+    let mut rng = thread_rng();
+
+    for _ in 0..iteration_depth{
+        let num = rng.next_u32();
+        let int = (100f32 * (num as f32/u32::max_value() as f32)) as u32; //values should be in range between 0 and 100
+    
+        println!("random number: {}", int);
+
+        point = match int{
+            0 => {println!("hier"); (0f32, 0.16f32 * point.1)},
+            1..=85 =>{println!("HIER"); (0.85f32 * point.0 + 0.04f32 * point.1, -0.04f32*point.0 + 0.85f32*point.1 + 1.6f32)},
+            86..=93 => (0.2f32 * point.0 - 0.26f32*point.0, 0.23f32*point.0 + 0.22f32 * point.1 + 1.6f32),
+            94..=100 => (-0.15f32*point.0 + 0.28f32 * point.1, 0.26 * point.0 + 0.24f32 * point.1 + 0.44f32),
+            _ => panic!("This code shouldnt be reached")
+        };
+
+        println!("{:?}", point);
+
+        image.put_pixel(point.0 as u32 * 85, 57 * point.1 as u32 - 275, image::Rgb([255, 255, 255]));
+    }
+
+    
+
+    Some(image)
+}
